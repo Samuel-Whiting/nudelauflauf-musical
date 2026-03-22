@@ -152,6 +152,133 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #000; }
   100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
+/* ═══ SCENE 1.5: VIDEO EMBED ═══ */
+.scene-video {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f3460 0%, #1a1a2e 30%, #000 100%);
+  flex-direction: column;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.video-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--cheese);
+  margin-bottom: 8px;
+  font-weight: 900;
+  text-shadow: 0 3px 15px rgba(255, 213, 79, 0.3);
+}
+
+.video-section-sub {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 40px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(212, 168, 83, 0.25), 0 0 0 2px var(--gold);
+  background: #111;
+  aspect-ratio: 16/9;
+}
+
+.video-container iframe,
+.video-container video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Placeholder when no video is embedded yet */
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #1a1a2e, #000);
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.video-placeholder:hover {
+  background: radial-gradient(circle, #222244, #111);
+}
+
+.play-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 30px rgba(212, 168, 83, 0.4);
+  animation: playPulse 2s ease-in-out infinite;
+}
+
+.play-btn::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 16px 0 16px 28px;
+  border-color: transparent transparent transparent #1a1a2e;
+  margin-left: 6px;
+}
+
+@keyframes playPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 30px rgba(212, 168, 83, 0.4); }
+  50% { transform: scale(1.08); box-shadow: 0 8px 40px rgba(212, 168, 83, 0.6); }
+}
+
+.video-placeholder-text {
+  font-family: 'Playfair Display', serif;
+  color: var(--cheese);
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.video-placeholder-hint {
+  color: rgba(255,255,255,0.3);
+  font-size: 0.8rem;
+  margin-top: 8px;
+}
+
+.video-caption {
+  margin-top: 24px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Suno embed style */
+.suno-embed {
+  width: 100%;
+  max-width: 800px;
+  margin: 32px auto 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+.suno-embed iframe {
+  width: 100%;
+  border: none;
+  display: block;
+}
+
 /* ═══ SCENE 2: THE ALPS / HILLTOP ═══ */
 .scene-alps {
   background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 40%, transparent 40%);
@@ -785,6 +912,43 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #000; }
     <h1 class="title-main">NUDELAUFLAUF!</h1>
     <div class="title-sub">Das Musical</div>
     <div class="title-badge">Scroll to begin the journey</div>
+  </div>
+</section>
+
+<!-- ═══ SCENE 1.5: THE MUSIC VIDEO ═══ -->
+<section class="scene scene-video">
+  <h2 class="video-section-title reveal">Das Musikvideo</h2>
+  <div class="video-section-sub reveal reveal-delay-1">The Official Music Video</div>
+
+  <div class="video-container reveal reveal-delay-2" id="videoContainer">
+    <!--
+      ═══════════════════════════════════════════════
+      TO EMBED YOUR VIDEO: Replace this placeholder
+      div with one of these:
+
+      YOUTUBE:
+      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+              allowfullscreen allow="autoplay; encrypted-media"></iframe>
+
+      SUNO SONG:
+      <iframe src="https://suno.com/embed/YOUR_SONG_ID"
+              height="200"></iframe>
+
+      MP4 FILE:
+      <video controls poster="images/thomas.jpg">
+        <source src="your-video.mp4" type="video/mp4">
+      </video>
+      ═══════════════════════════════════════════════
+    -->
+    <div class="video-placeholder" onclick="this.innerHTML='<div style=\'padding:40px;color:var(--cheese);font-family:Playfair Display,serif;font-size:1.2rem;\'> Generate the song on <a href=\'https://suno.com\' target=\'_blank\' style=\'color:var(--gold);text-decoration:underline;\'>suno.com</a> with the lyrics below, then paste the embed link here!</div>'">
+      <div class="play-btn"></div>
+      <div class="video-placeholder-text">Nudelauflauf! Das Musical</div>
+      <div class="video-placeholder-hint">Generate on Suno, then embed here</div>
+    </div>
+  </div>
+
+  <div class="video-caption reveal reveal-delay-3">
+    Scroll down for the full animated experience &#x2193;
   </div>
 </section>
 
